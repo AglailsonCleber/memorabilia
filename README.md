@@ -1,2 +1,2 @@
 # memorabilia
-Repositório Memorabilia - Um projeto pessoal para catalogar lembranças, filmes, livros, séries e músicas favoritas, celebrando memórias especiais.
+Este é o repositório dedicado ao meu projeto pessoal de Memorabilia, um espaço digital onde eu organizo e compartilho minhas memórias preciosas. Aqui, vou criar uma plataforma para catalogar lembranças, filmes favoritos, livros lidos, séries assistidas e músicas queridas. Este projeto visa ajudar a preservar e reviver experiências significativas em minha vida, oferecendo uma forma de explorar, compartilhar e apreciar as memórias que tornam a vida especial. Junte-se a mim nesta jornada de redescoberta e celebração das experiências que moldaram quem sou. Seja bem-vindo ao meu mundo de Memorabilia!
