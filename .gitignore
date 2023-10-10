@@ -1,3 +1,6 @@
+# Ignore the "./apikey" folder
+./apikey
+
 # Logs
 logs
 *.log
