@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Page colors as variables */
+:root {
+    --background-content-color: #f0f0f0;
+    --background-menu-color: #000000;
+    --background-card-color: #fff000;
+    --text-menu-color-hover: #ffffff;
+    --text-menu-color: grey;
+    --text-card-color: #827b46;
+    --text-card-color-hover: #baa35f;
+
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+
+/* Styles for the navbar */
+header {
+    position: fixed;
+    width: 100vw;
+    background-color: var(--background-menu-color);
+    color: var(--text-menu-color);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 8vh;
+    z-index: 2;
+}
+
+
+.title {
+    text-decoration: none;
+    color: var(--text-menu-color-hover);
+    padding: 10px;
+    font-size: 2.6vh;
+}
+
+.bi-list {
+    text-decoration: none;
+    color: var(--text-menu-color);
+    padding: 10px;
+    font-size: 2.2vh;
+}
+
+
+
+/* Styles for sidenav */
+.sidenav {
+    position: fixed;
+    top: 8vh;
+    left: 0px;
+    height: calc(100% - 8vh);
+    width: 200px;
+    padding: 5px;
+    background-color: var(--background-menu-color);
+    color: var(--text-menu-color);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    transition: transform 0.4s ease;
+    transform: translateX(0px);
+}
+
+.sidenav-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: auto;
+}
+
+.sidenav-menu-toggled {
+    transform: translateX(-220px);
+}
+
+.side-menu-heading {
+    display: block;
+    padding: 0.4rem 0rem 0.4rem 0rem;
+}
+
+.items{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.submenu-book,
+.submenu-music {
+    margin-left: 40px;
+}
+
+.sidenav-menu a {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    color: var(--text-menu-color);
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.sidenav-menu i {
+    padding: 0 6px;
+}
+
+.bi-caret-right,
+.bi-caret-down {
+    margin-left: auto;
+    display: flex;
+    align-self: flex-end;
+}
+
+
+/* Styles for content */
+.content {
+    position: fixed;
+    top: 8vh;
+    left: 220px;
+    height: calc(100% - 8vh);
+    width: calc(100vw - 220px);
+    border: 0;
+    margin: 0;
+    padding: 0;
+    transition: transform 0.4s ease;
+    transform: translateX(0px);
+}
+
+#content-movie,
+#content-tvshow {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+.sidenav-toggled {
+    width: 100vw;
+    transform: translateX(-220px);
+}
+
+
+/* Extras */
+.display-none {
+    display: none;
+}
+
+.bi-list:hover,
+.sidenav-menu a:hover {
+    color: var(--text-menu-color-hover);
+}
