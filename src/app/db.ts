@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion, Db, Collection, InsertOneResult } from "mongodb";
+import { MongoClient, ServerApiVersion, Db, InsertOneResult } from "mongodb";
 import { genSaltSync, hashSync } from 'bcrypt-ts';
 
 if (!process.env.MONGODB_URI) {
