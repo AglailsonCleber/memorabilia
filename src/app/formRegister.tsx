@@ -1,17 +1,15 @@
-
-export function FormRegister({
-  action,
-  children,
-}: {
-  action: any;
+interface FormRegisterProps {
+  action: (formData: FormData) => void;
   children: React.ReactNode;
-}) {
+}
+
+export function FormRegister({ action, children }: FormRegisterProps) {
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault(); // Impede o envio padrão do formulário
-        const formData = new FormData(e.target);
-        action(formData); // Chama a função de ação passada
+        e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        action(formData);
       }}
       className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 sm:px-16"
     >

@@ -1,44 +1,40 @@
-import { MongoClient, ServerApiVersion } from "mongodb"
+import { MongoClient, ServerApiVersion, Db, Collection, InsertOneResult } from "mongodb";
 import { genSaltSync, hashSync } from 'bcrypt-ts';
 
 if (!process.env.MONGODB_URI) {
-  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"')
+  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
 }
- 
-const uri = process.env.MONGODB_URI
+
+const uri = process.env.MONGODB_URI;
 const options = {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
   },
-}
- 
-let client: MongoClient
- 
+};
+
+let client: MongoClient;
+
 if (process.env.NODE_ENV === "development") {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
   const globalWithMongo = global as typeof globalThis & {
-    _mongoClient?: MongoClient
-  }
- 
+    _mongoClient?: MongoClient;
+  };
+
   if (!globalWithMongo._mongoClient) {
-    globalWithMongo._mongoClient = new MongoClient(uri, options)
+    globalWithMongo._mongoClient = new MongoClient(uri, options);
   }
-  client = globalWithMongo._mongoClient
+  client = globalWithMongo._mongoClient;
 } else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options)
+  client = new MongoClient(uri, options);
 }
- 
-// Export a module-scoped MongoClient. By doing this in a
-// separate module, the client can be shared across functions.
-export default client
 
-let db: any;
+export default client;
 
-async function connectToDatabase() {
+let db: Db | null = null;
+
+// Conexão com o banco de dados
+async function connectToDatabase(): Promise<Db> {
   if (!db) {
     await client.connect();
     db = client.db('auth');
@@ -46,27 +42,33 @@ async function connectToDatabase() {
   return db;
 }
 
-// Função para buscar um usuário pelo email
-export async function getUser(email: string) {
+// Tipagem para o retorno do usuário
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+}
+
+// Função para buscar o usuário pelo email
+export async function getUser(email: string): Promise<User | null> {
   const db = await connectToDatabase();
-  const user = await db.collection('users').findOne({ email });
+  const user = await db.collection<User>('users').findOne({ email });
   return user;
 }
 
 // Função para criar um novo usuário
-export async function createUser(name: string, email: string, password: string) {
+export async function createUser(name: string, email: string, password: string): Promise<InsertOneResult<User>> {
   const db = await connectToDatabase();
   const salt = genSaltSync(10);
   const hashedPassword = hashSync(password, salt);
 
-  const newUser = {
+  const newUser: Omit<User, '_id'> = {
     name,
     email,
     password: hashedPassword,
   };
 
-  const result = await db.collection('users').insertOne(newUser);
-  return result.insertedId;
+  const result = await db.collection<User>('users').insertOne(newUser);
+  return result;
 }
-
-// This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb

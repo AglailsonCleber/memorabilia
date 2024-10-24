@@ -4,9 +4,15 @@ import { compare } from 'bcrypt-ts';
 import { getUser } from '../../../db';
 import { authConfig } from '../../../auth.config';
 
+interface User {
+  id: string;
+  email: string;
+  password: string;
+}
+
 const handler = NextAuth({
-  pages:{
-    signIn:"/",
+  pages: {
+    signIn: "/",
   },
   ...authConfig,
   providers: [
@@ -16,17 +22,24 @@ const handler = NextAuth({
         username: { label: "Email", type: "email", placeholder: "" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials) {
+      async authorize(credentials: { email: string; password: string }) {
+        if (!credentials) return null;
+
         const { email, password } = credentials;
-        const user = await getUser(email);
+
+        const user: User | null = await getUser(email);
         if (!user) return null;
-        const passwordsMatch = await compare(password, user.password!);
-        if (passwordsMatch) return user;
+
+        const passwordsMatch = await compare(password, user.password);
+        if (passwordsMatch) {
+          return user;
+        }
+
         return null;
       }
     })
   ],
   secret: process.env.NEXTAUTH_SECRET,
-})
+});
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };
