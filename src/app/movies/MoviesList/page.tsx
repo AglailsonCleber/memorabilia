@@ -3,16 +3,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import Link from 'next/link';
-
-const TMDB_ACESS_TOKEN = process.env.NEXT_PUBLIC_TMDB_ACESS_TOKEN;
 
 const options = {
   method: 'GET',
   url: 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer ' + TMDB_ACESS_TOKEN,
+    Authorization: 'Bearer ' + process.env.NEXT_PUBLIC_TMDB_ACESS_TOKEN,
   },
 };
 
