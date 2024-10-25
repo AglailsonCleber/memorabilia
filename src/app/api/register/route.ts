@@ -1,15 +1,21 @@
 'use server';
 
-import { redirect } from 'next/navigation';
+import { NextResponse } from 'next/server';
 import { getUser, createUser } from '../../db';
 
-export async function register(name: string, email: string, password: string) {
-  const user = await getUser(email);
+export async function POST(request: Request) {
+  const { name, email, password } = await request.json();
 
-  if (user === null) {
-    await createUser(name, email, password);
-    redirect('/login');
-  } else {
-    return 'User already exists';
+  try {
+    const user = await getUser(email);
+
+    if (user === null) {
+      await createUser(name, email, password);
+      return NextResponse.json({ message: 'Creating user' }, { status: 200 });
+    } else {
+      return NextResponse.json({ message: 'User already exists' }, { status: 409 });
+    }
+  } catch (error) {
+    return NextResponse.json({ message: 'Error creating user' }, { status: 500 });
   }
 }

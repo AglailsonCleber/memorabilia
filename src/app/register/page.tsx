@@ -1,13 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { register } from '../api/register/route';
 import { SubmitButton } from '../submit-button';
 import { useState } from 'react';
 import { FormRegister } from '../formRegister';
 
 export default function RegisterPage() {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Estado para mensagens de erro
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleRegister = async (formData: FormData) => {
     const name = formData.get('name') as string;
@@ -18,13 +17,29 @@ export default function RegisterPage() {
     // Verifica se as senhas correspondem
     if (password !== confirmPassword) {
       setErrorMessage('As senhas não correspondem.');
-      return; // Retorna sem fazer o registro
+      return;
     }
 
-    const message = await register(name, email, password);
+    try {
+      // Faz a requisição para a API de registro
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-    // Atualiza a mensagem com a resposta do registro
-    setErrorMessage(message);
+      if (response.ok) {
+        // Redireciona o usuário após o registro
+        window.location.href = '/login';
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || 'Erro ao registrar o usuário.');
+      }
+    } catch (error) {
+      setErrorMessage('Erro na comunicação com o servidor.');
+    }
   };
 
   return (
