@@ -23,18 +23,22 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        // Verifica se as credenciais foram fornecidas
         if (!credentials || !credentials.username || !credentials.password) return null;
 
         const email = credentials.username;
         const password = credentials.password;
 
-        const user: User | null = await getUser(email);
-        if (!user) return null;
+        // Remover tipagem explícita para evitar conflito
+        const user = await getUser(email);
+        if (!user || !user.id || !user.password) return null;
 
         const passwordsMatch = await compare(password, user.password);
         if (passwordsMatch) {
-          return user;
+          return {
+            id: user.id,
+            email: user.email,
+            password: user.password
+          };
         }
 
         return null;
