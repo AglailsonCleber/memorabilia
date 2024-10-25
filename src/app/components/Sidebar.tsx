@@ -1,9 +1,12 @@
-// src/app/components/Sidebar.tsx
 'use client';
 
 import Link from 'next/link';
 
-const Sidebar = ({ isOpen }) => {
+interface SidebarProps {
+  isOpen: boolean;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
   return (
     <div
       className={`fixed top-16 left-0 w-64 bg-gray-900 text-white p-5 transform transition-transform duration-300 ease-in-out h-[calc(100vh-4rem)] ${
