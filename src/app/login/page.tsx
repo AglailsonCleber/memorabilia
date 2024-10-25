@@ -1,26 +1,35 @@
 'use client';
 
 import Link from 'next/link';
+import { Form } from '../form';
 import { signIn } from 'next-auth/react';
+import { SubmitButton } from '../submit-button';
 import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useCallback } from 'react';
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
   
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await signIn('credentials', {
-      email,
-      password,
+  // Função de envio do formulário
+  const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Evita o envio padrão do formulário
+    const formData = new FormData(event.currentTarget); // Obtém os dados do formulário
+
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    const result =await signIn('credentials', {
+      username: formData.get('email') as string,
+      password: formData.get('password') as string,
       callbackUrl: "/home",
     });
-  };
 
+    if (result?.error) {
+      console.error(result.error);
+    }
+  }, []);
+  
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-gray-50">
       <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-gray-100 shadow-xl">
@@ -30,26 +39,10 @@ export default function LoginForm() {
             Use your email and password to sign in
           </p>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4 px-4 py-6 sm:px-16">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full p-2 border rounded"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="w-full p-2 border rounded"
-          />
-          <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
-            Sign in
-          </button>
+        <Form
+          onSubmit={handleSubmit}
+        >
+          <SubmitButton>Sign in</SubmitButton>
           <p className="text-center text-sm text-gray-600">
             {"Don't have an account? "}
             <Link href="/register" className="font-semibold text-gray-800">
@@ -57,12 +50,9 @@ export default function LoginForm() {
             </Link>
             {' for free.'}
           </p>
-          {error === "CredentialsSignin" && (
-            <div className='text-center text-xl text-red-500'>
-              Incorrect email or password
-            </div>
-          )}
-        </form>
+          {error === "CredentialsSignin" && (<div className='text-center text-xl text-red-500'>Incorrect email or password</div>)}
+        </Form>
+        
       </div>
     </div>
   );

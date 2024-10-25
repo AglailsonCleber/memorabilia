@@ -1,11 +1,11 @@
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth';
+import { authConfig } from '../auth.config';
 import { redirect } from 'next/navigation';
 import Layout from '../components/Layout';
 
 export default async function ProtectedPage() {
-  const session = await getServerSession(authOptions);
-  
+  const session = await getServerSession(authConfig);
+  console.log(session);
   if (session) {
     return (
       <div>
@@ -19,5 +19,3 @@ export default async function ProtectedPage() {
 
   redirect('/login');
 }
-
-

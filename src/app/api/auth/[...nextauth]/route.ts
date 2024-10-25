@@ -17,22 +17,25 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
+        
         if (!credentials || !credentials.username || !credentials.password) return null;
 
         const email = credentials.username;
         const password = credentials.password;
-
         const user = await getUser(email);
-        if (!user || !user.password) return null;
-
+        
+        if (!user || !user._id || !user.password) return null;
+        
         const passwordsMatch = await compare(password, user.password);
+        
         if (passwordsMatch) {
           return {
-            id: user._id.toString(), // Supondo que o `_id` é do MongoDB
+            id: user._id,
+            name: user.name,
             email: user.email,
+            password: user.password
           };
         }
-
         return null;
       }
     })

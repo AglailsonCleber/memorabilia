@@ -1,12 +1,12 @@
 interface FormProps {
-  action?: string; 
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>; // Mudança aqui
   children: React.ReactNode;
 }
 
-export function Form({ action, children }: FormProps) {
+export function Form({ onSubmit, children }: FormProps) {
   return (
     <form
-      action={action}
+      onSubmit={onSubmit} // Mudança aqui
       className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 sm:px-16"
     >
       <div>
