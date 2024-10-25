@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
@@ -21,12 +22,20 @@ const options = {
 };
 
 export default function MoviesList() {
+  const { data: session, status } = useSession();
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [hoveredMovie, setHoveredMovie] = useState<number | null>(null);
 
   const router = useRouter();
-
+  
+  useEffect(() => {
+    if (status === 'loading') return;
+    if (!session) {
+      router.push('/');
+    }
+  }, [session, status, router]);
+  
   useEffect(() => {
     const fetchMovies = async () => {
       try {

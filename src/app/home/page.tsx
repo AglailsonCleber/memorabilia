@@ -16,5 +16,5 @@ export default async function ProtectedPage() {
     );
   }
 
-  redirect('/login');
+  redirect('/');
 }

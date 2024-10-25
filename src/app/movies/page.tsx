@@ -36,14 +36,14 @@ const MenuCard = ({ title, children }: { title: string; children: React.ReactNod
   );
 };
 
-export default function MoviesPage() {
+export default async function MoviesPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
     if (status === 'loading') return;
     if (!session) {
-      router.push('/login');
+      router.push('/');
     }
   }, [session, status, router]);
 
