@@ -1,7 +1,7 @@
 import LoginForm from "./login/page";
 import { getServerSession } from 'next-auth';
 import { authConfig } from './auth.config';
-// import { redirect } from "next/dist/server/api-utils";
+import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 
 export default async function Home() {
@@ -13,7 +13,9 @@ export default async function Home() {
 
   return (
     <main>
-      <LoginForm/>
+      <Suspense fallback={<p>Carregando...</p>}>
+        <LoginForm/>
+      </Suspense>
     </main>
   );
 }
