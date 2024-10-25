@@ -4,12 +4,6 @@ import { compare } from 'bcrypt-ts';
 import { getUser } from '../../../db';
 import { authConfig } from '../../../auth.config';
 
-interface User {
-  id: string;
-  email: string;
-  password: string;
-}
-
 const handler = NextAuth({
   pages: {
     signIn: "/",
