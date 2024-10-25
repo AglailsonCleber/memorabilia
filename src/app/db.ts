@@ -69,6 +69,6 @@ export async function createUser(name: string, email: string, password: string):
     password: hashedPassword,
   };
 
-  const result = await db.collection<User>('users').insertOne(newUser);
+  const result = await db.collection('users').insertOne(newUser); // Removendo a tipagem explícita <User>
   return result;
 }
