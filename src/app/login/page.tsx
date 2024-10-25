@@ -13,12 +13,8 @@ export default function LoginForm() {
   
   // Função de envio do formulário
   const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Evita o envio padrão do formulário
-    const formData = new FormData(event.currentTarget); // Obtém os dados do formulário
-
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
     const result =await signIn('credentials', {
       username: formData.get('email') as string,
       password: formData.get('password') as string,
