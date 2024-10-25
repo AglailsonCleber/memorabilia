@@ -5,7 +5,6 @@ import Layout from '../components/Layout';
 
 export default async function ProtectedPage() {
   const session = await getServerSession(authConfig);
-  console.log(session);
   if (session) {
     return (
       <div>
