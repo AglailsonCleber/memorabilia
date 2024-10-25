@@ -22,10 +22,12 @@ const handler = NextAuth({
         username: { label: "Email", type: "email", placeholder: "" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials: { email: string; password: string }) {
-        if (!credentials) return null;
+      async authorize(credentials) {
+        // Verifica se as credenciais foram fornecidas
+        if (!credentials || !credentials.username || !credentials.password) return null;
 
-        const { email, password } = credentials;
+        const email = credentials.username;
+        const password = credentials.password;
 
         const user: User | null = await getUser(email);
         if (!user) return null;
