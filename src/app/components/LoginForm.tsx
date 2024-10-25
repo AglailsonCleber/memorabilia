@@ -36,9 +36,7 @@ export default function LoginForm() {
               Use your email and password to sign in
             </p>
           </div>
-          <Form
-            onSubmit={handleSubmit}
-          >
+          <Form onSubmit={handleSubmit}>
             <SubmitButton>Sign in</SubmitButton>
             <p className="text-center text-sm text-gray-600">
               {"Don't have an account? "}

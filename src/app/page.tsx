@@ -1,4 +1,4 @@
-import LoginForm from "./login/page";
+import LoginForm from "./components/LoginForm";
 import { getServerSession } from 'next-auth';
 import { authConfig } from './auth.config';
 import { Suspense } from 'react';
