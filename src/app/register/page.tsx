@@ -55,7 +55,7 @@ export default function RegisterPage() {
           <SubmitButton>Sign Up</SubmitButton>
           <p className="text-center text-sm text-gray-600">
             {'Already have an account? '}
-            <Link href="/login" className="font-semibold text-gray-800">
+            <Link href="/" className="font-semibold text-gray-800">
               Sign in
             </Link>
             {' instead.'}
