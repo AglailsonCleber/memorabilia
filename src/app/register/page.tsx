@@ -37,7 +37,7 @@ export default function RegisterPage() {
         const data = await response.json();
         setErrorMessage(data.message || 'Erro ao registrar o usuário.');
       }
-    } catch (error) {
+    } catch {
       setErrorMessage('Erro na comunicação com o servidor.');
     }
   };

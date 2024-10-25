@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     } else {
       return NextResponse.json({ message: 'User already exists' }, { status: 409 });
     }
-  } catch (error) {
+  } catch {
     return NextResponse.json({ message: 'Error creating user' }, { status: 500 });
   }
 }
