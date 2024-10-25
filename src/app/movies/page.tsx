@@ -36,7 +36,7 @@ const MenuCard = ({ title, children }: { title: string; children: React.ReactNod
   );
 };
 
-export default async function MoviesPage() {
+export default function MoviesPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
