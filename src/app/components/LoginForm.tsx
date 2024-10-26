@@ -13,7 +13,7 @@ export default function LoginForm() {
   const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const result =await signIn('credentials', {
+    await signIn('credentials', {
       username: formData.get('email') as string,
       password: formData.get('password') as string,
       callbackUrl: "/home",
