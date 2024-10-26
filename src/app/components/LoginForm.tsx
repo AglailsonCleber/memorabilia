@@ -6,12 +6,10 @@ import { signIn } from 'next-auth/react';
 import { SubmitButton } from '../submit-button';
 import { useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
-import { Suspense } from 'react';
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
-  // Função de envio do formulário
   const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -20,14 +18,9 @@ export default function LoginForm() {
       password: formData.get('password') as string,
       callbackUrl: "/home",
     });
-
-    if (result?.error) {
-      console.error(result.error);
-    }
   }, []);
   
   return (
-    <Suspense fallback={<p>Carregando...</p>}>
       <div className="flex h-screen w-screen items-center justify-center bg-gray-50">
         <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-gray-100 shadow-xl">
           <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center sm:px-16">
@@ -50,6 +43,5 @@ export default function LoginForm() {
 
         </div>
       </div>
-    </Suspense>
   );
 }

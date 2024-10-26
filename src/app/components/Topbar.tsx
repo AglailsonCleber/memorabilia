@@ -38,7 +38,7 @@ const Topbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
             </p>
             <button
               className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-              onClick={async () => await signOut({ callbackUrl: '/login' })}
+              onClick={async () => await signOut({ callbackUrl: '/' })}
             >
               Logout
             </button>

@@ -5,7 +5,7 @@ import { getUser } from './db';
 
 export const authConfig: NextAuthOptions = {
   pages: {
-    signIn: '/login',
+    signIn: '/',
   },
   providers: [
     CredentialsProvider({

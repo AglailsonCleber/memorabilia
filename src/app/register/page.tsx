@@ -32,7 +32,7 @@ export default function RegisterPage() {
 
       if (response.ok) {
         // Redireciona o usuário após o registro
-        window.location.href = '/login';
+        window.location.href = '/home';
       } else {
         const data = await response.json();
         setErrorMessage(data.message || 'Erro ao registrar o usuário.');
