@@ -25,6 +25,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           </Link>
         </li>
         <li>
+          <Link href="/books" className="block p-4 hover:bg-gray-700">
+            Books
+          </Link>
+        </li>
+        <li>
           <Link href="/about" className="block p-4 hover:bg-gray-700">
             About
           </Link>

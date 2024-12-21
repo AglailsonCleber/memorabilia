@@ -2,10 +2,11 @@
 
 import dynamic from 'next/dynamic';
 import Layout from '../components/Layout';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-const MoviesList = dynamic(() => import('./MoviesList/page'), {
-  loading: () => <p>Carregando filmes...</p>, 
+const BooksList = dynamic(() => import('./BooksList/page'), {
+  loading: () => <p>Carregando livros...</p>, 
   ssr: false, 
 });
 
@@ -34,7 +35,9 @@ const MenuCard = ({ title, children }: { title: string; children: React.ReactNod
   );
 };
 
-export default function MoviesPage() {
+export default function BooksPage() {
+  const router = useRouter();
+
   return (
     <Layout>
       <div className="flex flex-col md:flex-row">
@@ -60,7 +63,7 @@ export default function MoviesPage() {
 
         {/* Lista de Filmes */}
         <div className="flex-1 p-4">
-          <MoviesList />
+          <BooksList />
         </div>
       </div>
     </Layout>
