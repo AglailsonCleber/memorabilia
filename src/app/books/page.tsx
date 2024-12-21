@@ -2,12 +2,11 @@
 
 import dynamic from 'next/dynamic';
 import Layout from '../components/Layout';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const BooksList = dynamic(() => import('./BooksList/page'), {
-  loading: () => <p>Carregando livros...</p>, 
-  ssr: false, 
+  loading: () => <p>Carregando livros...</p>,
+  ssr: false,
 });
 
 const MenuCard = ({ title, children }: { title: string; children: React.ReactNode }) => {
@@ -19,8 +18,8 @@ const MenuCard = ({ title, children }: { title: string; children: React.ReactNod
 
   return (
     <div className="border border-gray-300 rounded-lg mb-4">
-      <div 
-        className="flex justify-between items-center bg-gray-100 p-4 cursor-pointer" 
+      <div
+        className="flex justify-between items-center bg-gray-100 p-4 cursor-pointer"
         onClick={toggleMenu}
       >
         <h2 className="font-semibold">{title}</h2>
@@ -36,8 +35,6 @@ const MenuCard = ({ title, children }: { title: string; children: React.ReactNod
 };
 
 export default function BooksPage() {
-  const router = useRouter();
-
   return (
     <Layout>
       <div className="flex flex-col md:flex-row">
