@@ -1,11 +1,10 @@
 'use client';
 import SignIn from "@/app/sign-in/SignIn";
-import Dashboard from "./dashboard/Dashboard";
 
-export default function Home() {
+export default function Login() {
   return (
     <div className="flex h-screen items-center justify-center">
-      <Dashboard />
+      <SignIn />
     </div>
   )
 }
