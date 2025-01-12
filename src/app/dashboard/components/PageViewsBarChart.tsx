@@ -7,6 +7,12 @@ import Stack from '@mui/material/Stack';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useTheme } from '@mui/material/styles';
 
+interface XAxisConfig {
+  scaleType: string;
+  categoryGapRatio: number;
+  data: string[];
+}
+
 export default function PageViewsBarChart() {
   const theme = useTheme();
   const colorPalette = [
@@ -48,7 +54,7 @@ export default function PageViewsBarChart() {
                 categoryGapRatio: 0.5,
                 data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
               },
-            ] as any
+            ] as XAxisConfig[]
           }
           series={[
             {

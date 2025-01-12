@@ -63,7 +63,7 @@ export default function CustomDatePicker() {
         onChange={(newValue) => setValue(newValue)}
         slots={{ field: ButtonField }}
         slotProps={{
-          field: { setOpen } as any,
+          field: { setOpen } as Partial<ButtonFieldProps>,
           nextIconButton: { size: 'small' },
           previousIconButton: { size: 'small' },
         }}
